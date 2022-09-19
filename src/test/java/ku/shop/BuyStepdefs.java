@@ -17,10 +17,17 @@ public class BuyStepdefs {
         order = new Order();
     }
 
+    @Given("the warehouse is ready to check stock products")
+    public void the_warehouse_is_ready_to_check_stock_products() {
+        catalog = new ProductCatalog();
+        order = new Order();
+    }
+
     @Given("a product {string} with price {float} and stock of {int} exists")
     public void a_product_exists(String name, double price, int stock) {
         catalog.addProduct(name, price, stock);
     }
+
 
     @When("I buy {string} with quantity {int}")
     public void i_buy_with_quantity(String name, int quantity) {
@@ -32,5 +39,11 @@ public class BuyStepdefs {
     public void total_should_be(double total) {
         assertEquals(total, order.getTotal());
     }
+
+    @Then("total {string} stock should be {int}")
+    public void total_stock_should_be(String name,int stock) {
+        assertEquals(stock, catalog.getProduct(name).getStock());
+    }
+
 }
 
